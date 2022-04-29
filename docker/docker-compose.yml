@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  db:
+    container_name: mariadb
+    image: mariadb:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - ./config:/etc/mysql/conf.d
+      - maridb-vol:/var/lib/mysql
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    env_file: .env
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_DATABASE: "security"
+  redis:
+    container_name: redis
+    image: redis:alpine
+    command: redis-server --port 6379
+    hostname: redis_boot
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - 6379:6379
+
+volumes:
+  maridb-vol:
