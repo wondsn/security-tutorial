@@ -1,5 +1,6 @@
 package hello.wondsn.securityturotial.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,14 +11,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final CustomAuthenticationProvider customAuthenticationProvider;
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("gyeongkim")
-                .password("{noop}abc1234")
-                .roles("USER");
+        auth.authenticationProvider(customAuthenticationProvider);
     }
 
     @Override

@@ -10,7 +10,7 @@ spring:
     database-platform: org.hibernate.dialect.MariaDB103Dialect
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate.default_batch_fetch_size: 200
   #redis:
